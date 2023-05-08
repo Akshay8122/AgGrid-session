@@ -10,6 +10,16 @@ import { Button } from "antd";
 function AgGridDemo() {
   const [rowData, setRowData] = useState<[{}]>();
 
+  const fetchData = async () => {
+    const data = await fetch("https://jsonplaceholder.typicode.com/users")
+      .then((res) => res.json())
+      .then((data) => setRowData(data));
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const defaultColDef = useMemo(
     () => ({
       sortable: true,
@@ -34,15 +44,14 @@ function AgGridDemo() {
     </div>
   );
 
-  const fetchData = async () => {
-    const data = await fetch("https://jsonplaceholder.typicode.com/users")
-      .then((res) => res.json())
-      .then((data) => setRowData(data));
+  const userNameCellRules = {
+    "name-bret": (params: { value: string }) => params.value == "Bret",
+    "name-antonette": (params: { value: string }) =>
+      params.value == "Antonette",
+    "name-samantha": (params: { value: string }) => params.value == "Samantha",
+    "name-karianne": (params: { value: string }) => params.value == "Karianne",
+    "name-kamren": (params: { value: string }) => params.value == "Kamren",
   };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   const columnDefs: any = [
     {
@@ -52,7 +61,7 @@ function AgGridDemo() {
       headerCheckboxSelection: true,
     },
     { field: "name", width: 350 },
-    { field: "username", width: 320 },
+    { field: "username", width: 320, cellClassRules: userNameCellRules },
     {
       field: "email",
       width: 320,
