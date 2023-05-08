@@ -43,7 +43,11 @@ function AgGridDemo() {
     { field: "id", pinned: "left" },
     { field: "name", width: 350 },
     { field: "username", width: 320 },
-    { field: "email", width: 320 },
+    {
+      field: "email",
+      width: 320,
+      hide: true,
+    },
     { field: "phone", width: 310 },
     { field: "website" },
     {
