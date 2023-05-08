@@ -4,7 +4,7 @@ import "ag-grid-community/dist/styles/ag-theme-alpine-dark.css";
 import Image from "next/image";
 import agGridpic from "../public/images/agGrid.png";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Button } from "antd";
 
 function AgGridDemo() {
@@ -20,6 +20,11 @@ function AgGridDemo() {
     }),
     []
   );
+
+  const cellClickedListener = useCallback((params: any) => {
+    const data = params.data;
+    console.log(data);
+  }, []);
 
   const EditButton = () => (
     <div>
@@ -87,6 +92,7 @@ function AgGridDemo() {
           animateRows={true}
           pagination={true}
           paginationPageSize={5}
+          onCellValueChanged={cellClickedListener}
         />
       </div>
     </>
