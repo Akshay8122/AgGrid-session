@@ -13,6 +13,7 @@ function AgGridDemo() {
   const defaultColDef = useMemo(
     () => ({
       sortable: true,
+      filter: true,
     }),
     []
   );
