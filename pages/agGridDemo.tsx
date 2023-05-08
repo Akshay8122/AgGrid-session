@@ -49,6 +49,7 @@ function AgGridDemo() {
     {
       field: "Action",
       pinned: "right",
+      editable: false,
       cellRenderer: EditButton,
     },
   ];
@@ -73,6 +74,7 @@ function AgGridDemo() {
           rowData={rowData}
           columnDefs={columnDefs}
           defaultColDef={defaultColDef}
+          animateRows={true}
         />
       </div>
     </>
