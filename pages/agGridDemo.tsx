@@ -16,6 +16,7 @@ function AgGridDemo() {
       filter: true,
       resizable: true,
       autoSize: true,
+      editable: true,
     }),
     []
   );
