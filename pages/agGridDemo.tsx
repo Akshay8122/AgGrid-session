@@ -75,6 +75,8 @@ function AgGridDemo() {
           columnDefs={columnDefs}
           defaultColDef={defaultColDef}
           animateRows={true}
+          pagination={true}
+          paginationPageSize={5}
         />
       </div>
     </>
