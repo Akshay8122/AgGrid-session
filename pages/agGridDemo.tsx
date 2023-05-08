@@ -10,6 +10,13 @@ import { Button } from "antd";
 function AgGridDemo() {
   const [rowData, setRowData] = useState<[{}]>();
 
+  const defaultColDef = useMemo(
+    () => ({
+      sortable: true,
+    }),
+    []
+  );
+
   const EditButton = () => (
     <div>
       <Button type="default" className="bg-blue-400 text-white w-24">
@@ -61,6 +68,7 @@ function AgGridDemo() {
           domLayout="autoHeight"
           rowData={rowData}
           columnDefs={columnDefs}
+          defaultColDef={defaultColDef}
         />
       </div>
     </>
