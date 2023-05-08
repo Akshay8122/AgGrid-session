@@ -40,7 +40,12 @@ function AgGridDemo() {
   }, []);
 
   const columnDefs: any = [
-    { field: "id", pinned: "left" },
+    {
+      field: "id",
+      pinned: "left",
+      checkboxSelection: true,
+      headerCheckboxSelection: true,
+    },
     { field: "name", width: 350 },
     { field: "username", width: 320 },
     {
