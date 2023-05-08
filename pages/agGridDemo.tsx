@@ -14,6 +14,8 @@ function AgGridDemo() {
     () => ({
       sortable: true,
       filter: true,
+      resizable: true,
+      autoSize: true,
     }),
     []
   );
