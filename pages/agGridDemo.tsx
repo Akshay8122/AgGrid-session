@@ -46,9 +46,9 @@ function AgGridDemo() {
     <>
       <div
         className="ag-theme-alpine py-2"
-        style={{
-          height: "70vh",
-        }}
+        // style={{
+        //   height: "70vh",
+        // }}
       >
         <Image
           src={agGridpic}
@@ -57,7 +57,11 @@ function AgGridDemo() {
           height={250}
           className="mx-auto my-10"
         />
-        <AgGridReact rowData={rowData} columnDefs={columnDefs} />
+        <AgGridReact
+          domLayout="autoHeight"
+          rowData={rowData}
+          columnDefs={columnDefs}
+        />
       </div>
     </>
   );
