@@ -61,7 +61,7 @@ function AgGridDemo() {
       checkboxSelection: true,
       headerCheckboxSelection: true,
     },
-    { field: "name", width: 350 },
+    { field: "name", width: 350, enableRowGroup: true },
     { field: "username", width: 320, cellClassRules: userNameCellRules },
     {
       field: "email",
@@ -94,6 +94,7 @@ function AgGridDemo() {
           className="mx-auto my-10"
         />
         <AgGridReact
+          rowGroupPanelShow="always"
           domLayout="autoHeight"
           rowData={rowData}
           columnDefs={columnDefs}
