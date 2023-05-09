@@ -75,6 +75,7 @@ function AgGridDemo() {
       field: "Action",
       pinned: "right",
       editable: false,
+      filter: false,
       cellRenderer: EditButton,
     },
   ];
@@ -102,8 +103,9 @@ function AgGridDemo() {
           defaultColDef={defaultColDef}
           rowSelection="multiple"
           animateRows={true}
-          pagination={true}
-          paginationPageSize={5}
+          // pagination={true}
+          // paginationPageSize={5}
+          sideBar={"columns"}
           onCellValueChanged={cellClickedListener}
         />
       </div>
