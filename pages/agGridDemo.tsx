@@ -1,15 +1,18 @@
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine-dark.css";
-// import "ag-grid-enterprise";
+import "ag-grid-enterprise";
 import Image from "next/image";
 import agGridpic from "../public/images/agGrid.png";
+import { read, utils, writeFile } from "xlsx";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { Button } from "antd";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Button, message } from "antd";
 
 function AgGridDemo() {
   const [rowData, setRowData] = useState<[{}]>();
+
+  const gridRef = useRef<AgGridReact<any>>(null);
 
   const fetchData = async () => {
     const data = await fetch("https://jsonplaceholder.typicode.com/users")
@@ -28,7 +31,8 @@ function AgGridDemo() {
       resizable: true,
       autoSize: true,
       editable: true,
-      // floatingFilter: true,
+      floatingFilter: true,
+      rowMultiSelectWithClick: true,
     }),
     []
   );
@@ -59,10 +63,8 @@ function AgGridDemo() {
     {
       field: "email",
       width: 320,
-      // hide: true,
+      hide: true,
     },
-    { field: "phone", width: 310 },
-    { field: "website" },
     { field: "phone", width: 310 },
     { field: "website" },
     {
@@ -88,6 +90,30 @@ function AgGridDemo() {
     },
   ];
 
+  // Export data using third party library
+
+  const handleExport = () => {
+    const headings: any = [
+      ["id", "name", "username", "email", "", "phone", "website"],
+    ];
+
+    const wb = utils.book_new();
+    const ws = utils.json_to_sheet([]);
+    utils.sheet_add_aoa(ws, headings);
+    const selectedRows: any = gridRef.current?.api.getSelectedRows();
+    console.log(selectedRows);
+    if (selectedRows.length > 0) {
+      utils.sheet_add_json(ws, selectedRows, {
+        origin: "A2",
+        skipHeader: true,
+      });
+      utils.book_append_sheet(wb, ws, "AgGrid-Session");
+      writeFile(wb, "AgGrid.xlsx");
+    } else {
+      message.warning("Please select a row first!!");
+    }
+  };
+
   return (
     <>
       <div
@@ -103,6 +129,15 @@ function AgGridDemo() {
           height={250}
           className="mx-auto my-10"
         />
+
+        <Button
+          size="large"
+          onClick={handleExport}
+          className="ml-2 my-2 bg-slate-800 text-white"
+        >
+          Export Data
+        </Button>
+
         <AgGridReact
           rowGroupPanelShow="always"
           domLayout="autoHeight"
@@ -111,8 +146,9 @@ function AgGridDemo() {
           defaultColDef={defaultColDef}
           rowSelection="multiple"
           animateRows={true}
-          // pagination={true}
-          // paginationPageSize={5}
+          pagination={true}
+          paginationPageSize={5}
+          ref={gridRef}
           sideBar={"columns"}
           onCellValueChanged={cellClickedListener}
         />
