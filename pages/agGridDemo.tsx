@@ -141,6 +141,7 @@ function AgGridDemo() {
         <AgGridReact
           rowGroupPanelShow="always"
           domLayout="autoHeight"
+          suppressDragLeaveHidesColumns={true}
           rowData={rowData}
           columnDefs={columnDefs}
           defaultColDef={defaultColDef}
