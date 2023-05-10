@@ -28,7 +28,7 @@ function AgGridDemo() {
       resizable: true,
       autoSize: true,
       editable: true,
-      floatingFilter: true,
+      // floatingFilter: true,
     }),
     []
   );
@@ -37,14 +37,6 @@ function AgGridDemo() {
     const data = params.data;
     console.log(data);
   }, []);
-
-  const EditButton = () => (
-    <div>
-      <Button type="default" className="bg-blue-400 text-white w-24">
-        Edit
-      </Button>
-    </div>
-  );
 
   const userNameCellRules = {
     "name-bret": (params: { value: string }) => params.value == "Bret",
@@ -67,8 +59,10 @@ function AgGridDemo() {
     {
       field: "email",
       width: 320,
-      hide: true,
+      // hide: true,
     },
+    { field: "phone", width: 310 },
+    { field: "website" },
     { field: "phone", width: 310 },
     { field: "website" },
     {
@@ -76,7 +70,21 @@ function AgGridDemo() {
       pinned: "right",
       editable: false,
       filter: false,
-      cellRenderer: EditButton,
+      cellRenderer: (params: any) => (
+        <div>
+          <Button
+            type="default"
+            className="bg-blue-400 text-white w-24"
+            onClick={() =>
+              setRowData((prev: any) =>
+                prev.filter((data: any) => params.data.id !== data.id)
+              )
+            }
+          >
+            Delete
+          </Button>
+        </div>
+      ),
     },
   ];
 
