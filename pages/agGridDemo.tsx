@@ -58,7 +58,13 @@ function AgGridDemo() {
       checkboxSelection: true,
       headerCheckboxSelection: true,
     },
-    { field: "name", width: 350, enableRowGroup: true },
+    {
+      field: "name",
+      width: 350,
+      enableRowGroup: true,
+      wrapText: true,
+      autoHeight: true,
+    },
     { field: "username", width: 320, cellClassRules: userNameCellRules },
     {
       field: "email",
